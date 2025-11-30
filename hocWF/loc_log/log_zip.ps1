@@ -158,7 +158,7 @@ $passFolder = Join-Path $parent_of_log "PASS"
 $failFolder = Join-Path $parent_of_log "FAIL"
 New-Item -Path $passFolder -ItemType Directory -Force | Out-Null
 New-Item -Path $failFolder -ItemType Directory -Force | Out-Null
-$cac_tram_test = @("DL", "PT", "PT0", "PT1", "PT2", "PT3", "PT4", "BURN", "FT1", "FT2", "FT3", "FT4", "FT5", "FT6")
+$cac_tram_test = @("DL", "PT", "PT0", "PT1", "PT2", "PT3", "PT4", "BURN", "FT1", "FT2", "FT3", "FT4", "FT5", "FT6", "FT7", "FT8")
 $cac_tram_test | ForEach-Object {
     New-Item -Path (Join-Path $passFolder $_) -ItemType Directory -Force | Out-Null
     New-Item -Path (Join-Path $failFolder $_) -ItemType Directory -Force | Out-Null
@@ -240,6 +240,8 @@ foreach ($_ in $log_files) {
         "^PASS.*_FT4_" { join_and_move_pass -log_dir $final_LOG_FOLDER -file_name $_ -state "FT4"; $count_pass++; break }
         "^PASS.*_FT5_" { join_and_move_pass -log_dir $final_LOG_FOLDER -file_name $_ -state "FT5"; $count_pass++; break }
         "^PASS.*_FT6_" { join_and_move_pass -log_dir $final_LOG_FOLDER -file_name $_ -state "FT6"; $count_pass++; break }
+        "^PASS.*_FT7_" { join_and_move_pass -log_dir $final_LOG_FOLDER -file_name $_ -state "FT7"; $count_pass++; break }
+        "^PASS.*_FT8_" { join_and_move_pass -log_dir $final_LOG_FOLDER -file_name $_ -state "FT8"; $count_pass++; break }
     }
 }
 
@@ -261,6 +263,8 @@ foreach ($_ in $log_files) {
         "^FAIL.*_FT4_" { join_and_move_fail -log_dir $final_LOG_FOLDER -file_name $_ -state "FT4"; $count_fail++; break }
         "^FAIL.*_FT5_" { join_and_move_fail -log_dir $final_LOG_FOLDER -file_name $_ -state "FT5"; $count_fail++; break }
         "^FAIL.*_FT6_" { join_and_move_fail -log_dir $final_LOG_FOLDER -file_name $_ -state "FT6"; $count_fail++; break }
+        "^FAIL.*_FT7_" { join_and_move_fail -log_dir $final_LOG_FOLDER -file_name $_ -state "FT7"; $count_fail++; break }
+        "^FAIL.*_FT8_" { join_and_move_fail -log_dir $final_LOG_FOLDER -file_name $_ -state "FT8"; $count_fail++; break }
     }
 }
 
