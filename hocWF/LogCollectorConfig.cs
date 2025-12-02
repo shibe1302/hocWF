@@ -18,5 +18,6 @@ namespace hocWF
         public string RemoteFolderScan { get; set; }
         public string MacFilePath { get; set; }
         public string MaxThreadScan { get; set; }
+        public bool ScanLocalMode { get; set; }
     }
 }

@@ -41,6 +41,7 @@ namespace hocWF
             buttonRunPS = new Button();
             textBoxPath = new TextBox();
             tabPage4 = new TabPage();
+            CB_LocalScan = new CheckBox();
             BTN_macFilePath = new Button();
             TB_MacFilePath = new TextBox();
             label14 = new Label();
@@ -101,7 +102,6 @@ namespace hocWF
             OFD_winscpDLL_File = new OpenFileDialog();
             OFD_macFilePath = new OpenFileDialog();
             contextMenuStrip1 = new ContextMenuStrip(components);
-            CB_LocalScan = new CheckBox();
             tabControl1.SuspendLayout();
             tabPage3.SuspendLayout();
             tabPage4.SuspendLayout();
@@ -237,6 +237,17 @@ namespace hocWF
             tabPage4.Text = "Thu thập log trên sever";
             tabPage4.UseVisualStyleBackColor = true;
             // 
+            // CB_LocalScan
+            // 
+            CB_LocalScan.AutoSize = true;
+            CB_LocalScan.Location = new Point(910, 287);
+            CB_LocalScan.Name = "CB_LocalScan";
+            CB_LocalScan.Size = new Size(99, 24);
+            CB_LocalScan.TabIndex = 30;
+            CB_LocalScan.Text = "Local scan";
+            CB_LocalScan.UseVisualStyleBackColor = true;
+            CB_LocalScan.CheckedChanged += CB_LocalScan_CheckedChanged;
+            // 
             // BTN_macFilePath
             // 
             BTN_macFilePath.Location = new Point(353, 470);
@@ -349,6 +360,8 @@ namespace hocWF
             TB_severScan.Name = "TB_severScan";
             TB_severScan.Size = new Size(372, 27);
             TB_severScan.TabIndex = 17;
+            TB_severScan.Click += TB_severScan_Click;
+            TB_severScan.TextChanged += TB_severScan_TextChanged;
             // 
             // TB_password
             // 
@@ -777,17 +790,6 @@ namespace hocWF
             contextMenuStrip1.ImageScalingSize = new Size(20, 20);
             contextMenuStrip1.Name = "contextMenuStrip1";
             contextMenuStrip1.Size = new Size(61, 4);
-            // 
-            // CB_LocalScan
-            // 
-            CB_LocalScan.AutoSize = true;
-            CB_LocalScan.Location = new Point(910, 287);
-            CB_LocalScan.Name = "CB_LocalScan";
-            CB_LocalScan.Size = new Size(99, 24);
-            CB_LocalScan.TabIndex = 30;
-            CB_LocalScan.Text = "Local scan";
-            CB_LocalScan.UseVisualStyleBackColor = true;
-            CB_LocalScan.CheckedChanged += CB_LocalScan_CheckedChanged;
             // 
             // Form1
             // 

@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.14.36623.8
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "hocWF", "hocWF\hocWF.csproj", "{17284BE7-DC26-4528-B961-9316A0373C69}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TE_TOOL", "hocWF\TE_TOOL.csproj", "{17284BE7-DC26-4528-B961-9316A0373C69}"
 EndProject
 Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Setup2", "Setup2\Setup2.vdproj", "{657E2043-FDBC-F1DC-4CD9-351906DA97D6}"
 EndProject
