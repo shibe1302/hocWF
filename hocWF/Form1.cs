@@ -1693,7 +1693,12 @@ MessageBoxIcon.Question
                 TB_maxThread.Text = config.MaxThreadScan;
                 TB_MacFilePath.Text = config.MacFilePath;
                 CB_LocalScan.Checked = config.ScanLocalMode;
-            }
+                var cleaned = config.RemoteFolderScan
+                .Select(p => p.EndsWith("\\") ? p.Substring(0, p.Length - 1) : p)
+                .ToList();
+                this.list_path_remote_or_local = cleaned;
+                
+    }
         }
 
         private void BTN_saveFormInfo_Click(object sender, EventArgs e)
@@ -1777,14 +1782,16 @@ MessageBoxIcon.Question
             
             foreach (var item in list_path_remote_or_local)
             {
+
+
                 if (CB_LocalScan.Checked)
                 {
                     // Scan local mode
-                    string scriptPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "log_collection_ps1", "scan-local-new-algorithm.ps1");
+                    string scriptPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "log_collection_ps1", "scan-local.ps1");
 
                     if (!File.Exists(scriptPath))
                     {
-                        MessageBox.Show("Không tìm thấy script scan-local-new-algorithm.ps1!", "Lỗi",
+                        MessageBox.Show("Không tìm thấy script scan-local.ps1!", "Lỗi",
                             MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return;
                     }
@@ -1818,7 +1825,7 @@ MessageBoxIcon.Question
                 else
                 {
                     string appDir = AppDomain.CurrentDomain.BaseDirectory;
-                    string scriptPath = Path.Combine(appDir, "log_collection_ps1", "hash-set-new-algorithm.ps1");
+                    string scriptPath = Path.Combine(appDir, "log_collection_ps1", "hash-set.ps1");
 
                     if (!File.Exists(scriptPath))
                     {
@@ -1912,10 +1919,8 @@ MessageBoxIcon.Question
 
         private void TB_severScan_Click(object sender, EventArgs e)
         {
-            List<string> currentPaths = TB_severScan.Text
-        .Split(new[] { ';' }, StringSplitOptions.RemoveEmptyEntries)
-        .Select(p => p.Trim())
-        .ToList();
+            List<string> currentPaths = TB_severScan.Text.Split(new[] { ';' }, StringSplitOptions.RemoveEmptyEntries).Select(p => p.Trim()).ToList();
+
 
             Form2 f2 = new Form2(currentPaths);
             f2.PathsSaved += F2_PathsSaved;
@@ -1923,7 +1928,10 @@ MessageBoxIcon.Question
         }
         private void F2_PathsSaved(List<string> paths)
         {
-            this.list_path_remote_or_local = paths;
+            var cleaned = paths
+            .Select(p => p.EndsWith("\\") ? p.Substring(0, p.Length - 1) : p)
+            .ToList();
+            this.list_path_remote_or_local = cleaned;
             TB_severScan.Text = string.Join(";", paths);
             Debug.WriteLine(TB_severScan.Text);
         }
