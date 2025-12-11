@@ -85,12 +85,7 @@ namespace hocWF
             undoStack1.Push("");
             undoStack2.Push("");
             comboBox1.SelectedIndex = 0;
-            checkedListBoxTests.MouseDown += CheckedListBoxTests_MouseDown;
-            checkedListBoxTests.MouseMove += CheckedListBoxTests_MouseMove;
-            checkedListBoxTests.MouseUp += CheckedListBoxTests_MouseUp;
-            checkedListBoxTests.DragOver += CheckedListBoxTests_DragOver;
-            checkedListBoxTests.DragDrop += CheckedListBoxTests_DragDrop;
-            checkedListBoxTests.AllowDrop = true;
+
 
             textBoxPath.Text = @"NHẬP VÀO LINK FOLDER HOẶC ZIP PATH";
             LoadFormData("config_log_collector.json");
@@ -117,23 +112,14 @@ namespace hocWF
 
 
 
-        private class ItemMoveInfo
-        {
-            public DiagTestItem Item { get; set; }
-            public int CurrentIndex { get; set; }
-            public int TargetIndex { get; set; }
-        }
 
 
 
 
 
 
-        private class MigrateItem
-        {
-            public DiagTestItem OldItem { get; set; }
-            public int NewIndex { get; set; }
-        }
+
+
         private void button1_Click(object sender, EventArgs e)
         {
             openFileDialog1.Filter = "Supported files (*.ini;*.log;*.txt)|*.ini;*.log;*.txt";
@@ -511,10 +497,7 @@ namespace hocWF
         }
 
 
-        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
-        {
 
-        }
         private void buttonRunPS_Click(object sender, EventArgs e)
         {
             string filePath = textBoxPath.Text.Trim();
@@ -607,10 +590,6 @@ namespace hocWF
             }
         }
 
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
 
         private void tabPage2_Click(object sender, EventArgs e)
         {
@@ -731,81 +710,7 @@ namespace hocWF
                 return false;
             }
         }
-        private bool FindJsonOldFTU()
-        {
-            try
-            {
 
-                if (string.IsNullOrEmpty(selectedFolderPathOldFtu))
-                {
-                    MessageBox.Show("Chưa chọn folder!", "Lỗi",
-                        MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return false;
-                }
-                string[] jsonFiles = Directory.GetFiles(selectedFolderPathOldFtu, "*_reorder.json", SearchOption.AllDirectories);
-
-                if (jsonFiles.Length == 0)
-                {
-                    MessageBox.Show("Không tìm thấy file *_reorder.json trong folder và các subfolder!", "Lỗi",
-                        MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return false;
-                }
-
-                if (jsonFiles.Length > 1)
-                {
-
-                    string fileList = string.Join("\n", jsonFiles.Select(f => f.Replace(selectedFolderPathOldFtu, ".")));
-                    MessageBox.Show($"Tìm thấy {jsonFiles.Length} file *_reorder.json:\n{fileList}\n\nSẽ sử dụng file: {jsonFiles[0].Replace(selectedFolderPathOldFtu, ".")}",
-                        "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                }
-
-                jsonFilePathOldFtu = jsonFiles[0];
-                Debug.WriteLine("Found JSON: " + jsonFilePathOldFtu);
-
-                string[] iniFiles = Directory.GetFiles(selectedFolderPathOldFtu, "selected_items.ini", SearchOption.AllDirectories);
-
-                if (iniFiles.Length == 0)
-                {
-                    MessageBox.Show($"Không tìm thấy selected_items.ini",
-                        "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-                else
-                {
-                    if (iniFiles.Length > 1)
-                    {
-                        string jsonDirectory = Path.GetDirectoryName(jsonFilePathOldFtu);
-                        string sameDirectoryIni = iniFiles.FirstOrDefault(f => Path.GetDirectoryName(f) == jsonDirectory);
-
-                        if (!string.IsNullOrEmpty(sameDirectoryIni))
-                        {
-                            iniFilePathOldFtu = sameDirectoryIni;
-                            MessageBox.Show($"Tìm thấy {iniFiles.Length} file selected_items.ini.\nSử dụng file cùng folder với JSON:\n{iniFilePathOldFtu.Replace(selectedFolderPathOldFtu, ".")}",
-                                "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        }
-                        else
-                        {
-                            iniFilePathOldFtu = iniFiles[0];
-                            string fileList = string.Join("\n", iniFiles.Select(f => f.Replace(selectedFolderPathOldFtu, ".")));
-                            MessageBox.Show($"Tìm thấy {iniFiles.Length} file selected_items.ini:\n{fileList}\n\nSử dụng file: {iniFilePathOldFtu.Replace(selectedFolderPathOldFtu, ".")}",
-                                "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                        }
-                    }
-                    else
-                    {
-                        iniFilePathOldFtu = iniFiles[0];
-                        Debug.WriteLine("Found INI: " + iniFilePathOldFtu);
-                    }
-                }
-
-                return true;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Lỗi khi tìm files: {ex.Message}", "Lỗi",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return false;
-            }
-        }
         private bool LoadJsonFile()
         {
             try
@@ -869,7 +774,7 @@ namespace hocWF
         }
         private void PopulateCheckedListBoxFromIni()
         {
-            checkedListBoxTests.Items.Clear();
+
 
             HashSet<string> checkedIdSet = new HashSet<string>(currentCheckedItemIds);
 
@@ -879,196 +784,15 @@ namespace hocWF
 
                 bool isChecked = checkedIdSet.Contains(item.ID.ToString());
 
-                checkedListBoxTests.Items.Add(displayText, isChecked);
-            }
 
-            Debug.WriteLine($"Populated {checkedListBoxTests.Items.Count} items to CheckedListBox");
-        }
-        private void button1_Click_1(object sender, EventArgs e)
-        {
-
-        }
-
-        public static string ReplaceItemsId(string fileContent, string newIdList)
-        {
-
-            string pattern = @"(\[ITEMS\]\r?\n\s*id\s*=\s*)[\d,\s]*";
-            string replacement = $"${{1}}{newIdList}";
-            return Regex.Replace(fileContent, pattern, replacement);
-        }
-        private void button7_Click(object sender, EventArgs e)
-        {
-
-        }
-        private void SaveJsonWithNewOrder()
-        {
-            try
-            {
-
-                var newConfig = new DiagTestConfig
-                {
-                    DiagTestItems = new List<DiagTestItem>(diagTestItems)
-                };
-
-
-                var options = new JsonSerializerOptions
-                {
-                    WriteIndented = true,
-                    Encoder = System.Text.Encodings.Web.JavaScriptEncoder.UnsafeRelaxedJsonEscaping
-                };
-
-                string jsonContent = JsonSerializer.Serialize(newConfig, options);
-                jsonContent = jsonContent.Replace("\uFEFF", string.Empty);
-
-
-                File.WriteAllText(jsonFilePath, jsonContent, new UTF8Encoding(false));
-
-                Debug.WriteLine($"Saved JSON with {diagTestItems.Count} items to: {jsonFilePath}");
-            }
-            catch (Exception ex)
-            {
-                throw new Exception($"Lỗi khi lưu JSON: {ex.Message}", ex);
-            }
-        }
-        private void btnSelectAll_Click(object sender, EventArgs e)
-        {
-            for (int i = 0; i < checkedListBoxTests.Items.Count; i++)
-            {
-                checkedListBoxTests.SetItemChecked(i, true);
-            }
-            UpdateTextBoxFromCheckedItems();
-        }
-
-        private void btnDisSelectAll_Click(object sender, EventArgs e)
-        {
-            for (int i = 0; i < checkedListBoxTests.Items.Count; i++)
-            {
-                checkedListBoxTests.SetItemChecked(i, false);
-            }
-            UpdateTextBoxFromCheckedItems();
-        }
-        private void CheckedListBoxTests_ItemCheck(object sender, ItemCheckEventArgs e)
-        {
-            this.BeginInvoke(new Action(() => UpdateTextBoxFromCheckedItems()));
-        }
-        private void UpdateTextBoxFromCheckedItems()
-        {
-            List<string> checkedIds = new List<string>();
-
-            for (int i = 0; i < checkedListBoxTests.Items.Count; i++)
-            {
-                if (checkedListBoxTests.GetItemChecked(i))
-                {
-                    checkedIds.Add(diagTestItems[i].ID.ToString());
-                }
             }
 
 
         }
 
-        private string NormalizeIdList(string idList)
-        {
-            if (string.IsNullOrWhiteSpace(idList))
-                return string.Empty;
-
-            var ids = idList.Split(',')
-                            .Select(id => id.Trim())
-                            .Where(id => !string.IsNullOrEmpty(id));
-
-            return string.Join(",", ids);
-        }
 
 
-        private void CheckedListBoxTests_MouseDown(object sender, MouseEventArgs e)
-        {
-            if (checkedListBoxTests.Items.Count == 0)
-                return;
 
-            dragIndex = checkedListBoxTests.IndexFromPoint(e.X, e.Y);
-
-            if (dragIndex != ListBox.NoMatches)
-            {
-                Size dragSize = SystemInformation.DragSize;
-                dragBoxFromMouseDown = new Rectangle(
-                    new Point(e.X - (dragSize.Width / 2), e.Y - (dragSize.Height / 2)),
-                    dragSize);
-            }
-            else
-            {
-                dragBoxFromMouseDown = Rectangle.Empty;
-            }
-        }
-        private void CheckedListBoxTests_DragOver(object sender, DragEventArgs e)
-        {
-            e.Effect = DragDropEffects.Move;
-
-            Point point = checkedListBoxTests.PointToClient(new Point(e.X, e.Y));
-            int currentIndex = checkedListBoxTests.IndexFromPoint(point);
-
-            if (currentIndex != ListBox.NoMatches && currentIndex != dragIndex)
-            {
-                if (lastHighlightedIndex != currentIndex)
-                {
-                    checkedListBoxTests.SelectedIndex = currentIndex;
-                    lastHighlightedIndex = currentIndex;
-                }
-            }
-        }
-
-        private void CheckedListBoxTests_MouseMove(object sender, MouseEventArgs e)
-        {
-            if ((e.Button & MouseButtons.Left) == MouseButtons.Left)
-            {
-                if (dragBoxFromMouseDown != Rectangle.Empty &&
-    !dragBoxFromMouseDown.Contains(e.X, e.Y) &&
-    dragIndex != -1)
-                {
-                    draggedItem = checkedListBoxTests.Items[dragIndex];
-                    isDraggedItemChecked = checkedListBoxTests.GetItemChecked(dragIndex);
-
-                    checkedListBoxTests.SelectedIndex = dragIndex;
-
-                    checkedListBoxTests.DoDragDrop(draggedItem, DragDropEffects.Move);
-
-                    dragBoxFromMouseDown = Rectangle.Empty;
-                }
-            }
-        }
-        private void CheckedListBoxTests_MouseUp(object sender, MouseEventArgs e)
-        {
-            dragBoxFromMouseDown = Rectangle.Empty;
-        }
-        private void CheckedListBoxTests_DragDrop(object sender, DragEventArgs e)
-        {
-            Point point = checkedListBoxTests.PointToClient(new Point(e.X, e.Y));
-            int dropIndex = checkedListBoxTests.IndexFromPoint(point);
-
-            if (dropIndex == ListBox.NoMatches)
-                dropIndex = checkedListBoxTests.Items.Count - 1;
-
-            if (dragIndex != -1 && dropIndex != -1 && dragIndex != dropIndex)
-            {
-                checkedListBoxTests.BeginUpdate();
-
-                var tempItem = diagTestItems[dragIndex];
-                diagTestItems.RemoveAt(dragIndex);
-                diagTestItems.Insert(dropIndex, tempItem);
-
-                checkedListBoxTests.Items.RemoveAt(dragIndex);
-                checkedListBoxTests.Items.Insert(dropIndex, draggedItem);
-                checkedListBoxTests.SetItemChecked(dropIndex, isDraggedItemChecked);
-
-                checkedListBoxTests.SelectedIndex = dropIndex;
-
-                checkedListBoxTests.EndUpdate();
-
-                UpdateTextBoxFromCheckedItems();
-            }
-
-            dragIndex = -1;
-            lastHighlightedIndex = -1;
-            dragBoxFromMouseDown = Rectangle.Empty;
-        }
         public class DiagTestItem
         {
             public string File { get; set; }

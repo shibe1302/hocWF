@@ -81,13 +81,8 @@ namespace hocWF
             richTextBox2 = new RichTextBox();
             richTextBox1 = new RichTextBox();
             tabPage2 = new TabPage();
+            LB_ftu_load_status = new Label();
             btnFTUcu = new Button();
-            groupBoxTestContent = new GroupBox();
-            btnMigrateFromOldFtu = new Button();
-            checkedListBoxTests = new CheckedListBox();
-            btnSaveIni = new Button();
-            btnSelectAll = new Button();
-            btnDisSelectAll = new Button();
             btnOpenFolder = new Button();
             openFileDialog3 = new OpenFileDialog();
             folderBrowserDialog1 = new FolderBrowserDialog();
@@ -98,13 +93,11 @@ namespace hocWF
             OFD_macFilePath = new OpenFileDialog();
             contextMenuStrip1 = new ContextMenuStrip(components);
             openFileDialog1 = new OpenFileDialog();
-            LB_ftu_load_status = new Label();
             tabControl1.SuspendLayout();
             tabPage3.SuspendLayout();
             tabPage4.SuspendLayout();
             tabPage1.SuspendLayout();
             tabPage2.SuspendLayout();
-            groupBoxTestContent.SuspendLayout();
             SuspendLayout();
             // 
             // openFileDialog2
@@ -618,7 +611,6 @@ namespace hocWF
             // 
             tabPage2.Controls.Add(LB_ftu_load_status);
             tabPage2.Controls.Add(btnFTUcu);
-            tabPage2.Controls.Add(groupBoxTestContent);
             tabPage2.Controls.Add(btnOpenFolder);
             tabPage2.Location = new Point(4, 29);
             tabPage2.Name = "tabPage2";
@@ -629,6 +621,14 @@ namespace hocWF
             tabPage2.UseVisualStyleBackColor = true;
             tabPage2.Click += tabPage2_Click;
             // 
+            // LB_ftu_load_status
+            // 
+            LB_ftu_load_status.AutoSize = true;
+            LB_ftu_load_status.Location = new Point(367, 85);
+            LB_ftu_load_status.Name = "LB_ftu_load_status";
+            LB_ftu_load_status.Size = new Size(0, 20);
+            LB_ftu_load_status.TabIndex = 7;
+            // 
             // btnFTUcu
             // 
             btnFTUcu.Location = new Point(66, 81);
@@ -638,76 +638,6 @@ namespace hocWF
             btnFTUcu.Text = "LOAD FTU CŨ";
             btnFTUcu.UseVisualStyleBackColor = true;
             btnFTUcu.Click += btnFTUcu_Click;
-            // 
-            // groupBoxTestContent
-            // 
-            groupBoxTestContent.Controls.Add(btnMigrateFromOldFtu);
-            groupBoxTestContent.Controls.Add(checkedListBoxTests);
-            groupBoxTestContent.Controls.Add(btnSaveIni);
-            groupBoxTestContent.Controls.Add(btnSelectAll);
-            groupBoxTestContent.Controls.Add(btnDisSelectAll);
-            groupBoxTestContent.Location = new Point(66, 142);
-            groupBoxTestContent.Name = "groupBoxTestContent";
-            groupBoxTestContent.Size = new Size(747, 452);
-            groupBoxTestContent.TabIndex = 4;
-            groupBoxTestContent.TabStop = false;
-            groupBoxTestContent.Text = "Trà cũ vị sưa";
-            groupBoxTestContent.Enter += groupBox1_Enter;
-            // 
-            // btnMigrateFromOldFtu
-            // 
-            btnMigrateFromOldFtu.Location = new Point(43, 50);
-            btnMigrateFromOldFtu.Name = "btnMigrateFromOldFtu";
-            btnMigrateFromOldFtu.Size = new Size(182, 29);
-            btnMigrateFromOldFtu.TabIndex = 5;
-            btnMigrateFromOldFtu.Text = "copy item từ FTU cũ";
-            btnMigrateFromOldFtu.UseVisualStyleBackColor = true;
-            btnMigrateFromOldFtu.Click += btnMigrateFromOldFtu_Click;
-            // 
-            // checkedListBoxTests
-            // 
-            checkedListBoxTests.AllowDrop = true;
-            checkedListBoxTests.FormattingEnabled = true;
-            checkedListBoxTests.Location = new Point(43, 106);
-            checkedListBoxTests.Name = "checkedListBoxTests";
-            checkedListBoxTests.Size = new Size(666, 312);
-            checkedListBoxTests.TabIndex = 4;
-            checkedListBoxTests.ItemCheck += CheckedListBoxTests_ItemCheck;
-            checkedListBoxTests.SelectedIndexChanged += checkedListBoxTests_SelectedIndexChanged;
-            checkedListBoxTests.DragDrop += CheckedListBoxTests_DragDrop;
-            checkedListBoxTests.DragOver += CheckedListBoxTests_DragOver;
-            checkedListBoxTests.MouseDown += CheckedListBoxTests_MouseDown;
-            checkedListBoxTests.MouseUp += CheckedListBoxTests_MouseUp;
-            // 
-            // btnSaveIni
-            // 
-            btnSaveIni.Location = new Point(614, 50);
-            btnSaveIni.Name = "btnSaveIni";
-            btnSaveIni.Size = new Size(94, 29);
-            btnSaveIni.TabIndex = 3;
-            btnSaveIni.Text = "Save";
-            btnSaveIni.UseVisualStyleBackColor = true;
-            btnSaveIni.Click += button7_Click;
-            // 
-            // btnSelectAll
-            // 
-            btnSelectAll.Location = new Point(453, 50);
-            btnSelectAll.Name = "btnSelectAll";
-            btnSelectAll.Size = new Size(94, 29);
-            btnSelectAll.TabIndex = 2;
-            btnSelectAll.Text = "Select all";
-            btnSelectAll.UseVisualStyleBackColor = true;
-            btnSelectAll.Click += btnSelectAll_Click;
-            // 
-            // btnDisSelectAll
-            // 
-            btnDisSelectAll.Location = new Point(292, 50);
-            btnDisSelectAll.Name = "btnDisSelectAll";
-            btnDisSelectAll.Size = new Size(94, 29);
-            btnDisSelectAll.TabIndex = 1;
-            btnDisSelectAll.Text = "Dis-select all";
-            btnDisSelectAll.UseVisualStyleBackColor = true;
-            btnDisSelectAll.Click += btnDisSelectAll_Click;
             // 
             // btnOpenFolder
             // 
@@ -749,14 +679,6 @@ namespace hocWF
             // 
             openFileDialog1.FileName = "openFileDialog1";
             // 
-            // LB_ftu_load_status
-            // 
-            LB_ftu_load_status.AutoSize = true;
-            LB_ftu_load_status.Location = new Point(367, 85);
-            LB_ftu_load_status.Name = "LB_ftu_load_status";
-            LB_ftu_load_status.Size = new Size(0, 20);
-            LB_ftu_load_status.TabIndex = 7;
-            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -775,7 +697,6 @@ namespace hocWF
             tabPage1.PerformLayout();
             tabPage2.ResumeLayout(false);
             tabPage2.PerformLayout();
-            groupBoxTestContent.ResumeLayout(false);
             ResumeLayout(false);
 
 
@@ -821,14 +742,8 @@ namespace hocWF
         private RichTextBox richTextBox1;
         private Button btnOpenFolder;
         private OpenFileDialog openFileDialog3;
-        private Button btnSaveIni;
-        private GroupBox groupBoxTestContent;
-        private Button btnSelectAll;
-        private Button btnDisSelectAll;
-        private CheckedListBox checkedListBoxTests;
         private FolderBrowserDialog folderBrowserDialog1;
         private FolderBrowserDialog folderBrowserDialog2;
-        private Button btnMigrateFromOldFtu;
         private TabPage tabPage3;
         private Label label2;
         private Label labelPath;
