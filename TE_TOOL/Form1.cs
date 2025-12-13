@@ -84,8 +84,6 @@ namespace hocWF
             undoStack2.Push("");
             comboBox1.SelectedIndex = 0;
 
-            //LoadFormData("config_log_collector.json");
-
 
         }
 

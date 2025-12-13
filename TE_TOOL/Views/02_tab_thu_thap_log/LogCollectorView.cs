@@ -9,6 +9,7 @@ using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using TE_TOOL.CONFIG;
 using TE_TOOL.Models;
 
 namespace TE_TOOL.Views._02_tab_thu_thap_log
@@ -25,6 +26,7 @@ namespace TE_TOOL.Views._02_tab_thu_thap_log
         public LogCollectorView()
         {
             InitializeComponent();
+            LoadFormData(CONFIG_CONSTANT.CONFIG_LOG_COLLECTOR);
         }
         public void SaveFormData(string filePath)
         {
@@ -172,6 +174,24 @@ namespace TE_TOOL.Views._02_tab_thu_thap_log
         }
         private void BTN_startScanLog_Click(object sender, EventArgs e)
         {
+            Debug.WriteLine("BTN_startScanLog_Click invoked");
+
+            // Nếu list rỗng nhưng textbox có giá trị thì populate tạm từ TB_severScan
+            if ((list_path_remote_or_local == null || list_path_remote_or_local.Count == 0)
+                && !string.IsNullOrWhiteSpace(TB_severScan.Text))
+            {
+                list_path_remote_or_local = TB_severScan.Text
+                    .Split(new[] { ';' }, StringSplitOptions.RemoveEmptyEntries)
+                    .Select(p => p.Trim().EndsWith("\\") ? p.Trim().TrimEnd('\\') : p.Trim())
+                    .ToList();
+            }
+
+            // Nếu vẫn rỗng -> thông báo (để kiểm tra button có được trigger hay không)
+            if (list_path_remote_or_local == null || list_path_remote_or_local.Count == 0)
+            {
+                MessageBox.Show("Chưa có đường dẫn nguồn (Remote/Local). Vui lòng cấu hình 'Remote folder scan' trước khi chạy.", "Thiếu cấu hình", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
 
             foreach (var item in list_path_remote_or_local)
             {

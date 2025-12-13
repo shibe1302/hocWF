@@ -123,6 +123,7 @@
             BTN_startScanLog.TabIndex = 80;
             BTN_startScanLog.Text = "Bới lông tìm vết";
             BTN_startScanLog.UseVisualStyleBackColor = true;
+            BTN_startScanLog.Click += BTN_startScanLog_Click;
             // 
             // label7
             // 
