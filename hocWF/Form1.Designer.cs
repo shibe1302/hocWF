@@ -154,7 +154,7 @@ namespace hocWF
             label2.Name = "label2";
             label2.Size = new Size(0, 89);
             label2.TabIndex = 5;
-            label2.Click += label2_Click;
+
             // 
             // labelPath
             // 
@@ -364,7 +364,7 @@ namespace hocWF
             label10.Size = new Size(117, 20);
             label10.TabIndex = 13;
             label10.Text = "Max thread scan";
-            label10.Click += label10_Click;
+     
             // 
             // label11
             // 
@@ -464,7 +464,7 @@ namespace hocWF
             label5.Size = new Size(38, 20);
             label5.TabIndex = 1;
             label5.Text = "User";
-            label5.Click += label5_Click;
+  
             // 
             // label4
             // 
@@ -619,7 +619,7 @@ namespace hocWF
             tabPage2.TabIndex = 1;
             tabPage2.Text = "copy test funtion";
             tabPage2.UseVisualStyleBackColor = true;
-            tabPage2.Click += tabPage2_Click;
+
             // 
             // LB_ftu_load_status
             // 
@@ -647,7 +647,7 @@ namespace hocWF
             btnOpenFolder.TabIndex = 2;
             btnOpenFolder.Text = "FTU MỚI";
             btnOpenFolder.UseVisualStyleBackColor = true;
-            btnOpenFolder.Click += button6_Click;
+
             // 
             // openFileDialog3
             // 
@@ -655,11 +655,11 @@ namespace hocWF
             // 
             // folderBrowserDialog1
             // 
-            folderBrowserDialog1.HelpRequest += folderBrowserDialog1_HelpRequest;
+
             // 
             // folderBrowserDialog2
             // 
-            folderBrowserDialog2.HelpRequest += folderBrowserDialog2_HelpRequest;
+
             // 
             // OFD_winscpDLL_File
             // 
@@ -687,7 +687,7 @@ namespace hocWF
             Controls.Add(tabControl1);
             Name = "Form1";
             Text = "Tool hỗ trợ ve di phai";
-            Load += Form1_Load;
+
             tabControl1.ResumeLayout(false);
             tabPage3.ResumeLayout(false);
             tabPage3.PerformLayout();

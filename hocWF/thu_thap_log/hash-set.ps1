@@ -1,19 +1,36 @@
-# ==================== CONFIGURATION ====================
-$ScpHost = "127.0.0.1"
-$ScpUser = "shibe"
-$ScpPassword = "shibe1302"
-$Protocol = "SFTP"                          
-$RemoteFolder = "/tess2/ucg"                          
-$LocalDestination = "E:\download_log"               
-$winscpDllPath = "C:\Program Files (x86)\WinSCP\WinSCPnet.dll"
-$MacFilePath = "E:\nghien_cuu_FTU\UCG_FIBER_40pcs_log\data.txt"          
-$MaxScanThreads = 10  
-$MaxDownloadThreads = 10  
-$ConnectionTimeout = 30  
-$Port = "22"
 
-# ==================== GLOBAL VARIABLES ====================
-$Global:MacRegex = [regex]::new("(_[^_]+_)", [System.Text.RegularExpressions.RegexOptions]::Compiled)
+param(
+    [string]$ScpHost,
+    [string]$Port,
+    [string]$ScpUser,
+    [string]$ScpPassword,
+    [string]$Protocol,
+    [string]$RemoteFolder,
+    [string]$LocalDestination,
+    [string]$winscpDllPath,
+    [string]$MacFilePath,
+    [int]$MaxScanThreads=5
+)
+[int]$ConnectionTimeout = 15
+[int]$MaxDownloadThreads = 10 # seconds
+Add-Type @"
+using System;
+using System.Runtime.InteropServices;
+public class WinAPI {
+    [DllImport("user32.dll")]
+    public static extern IntPtr GetForegroundWindow();
+    [DllImport("user32.dll")]
+    public static extern bool MoveWindow(IntPtr hWnd, int X, int Y, int nWidth, int nHeight, bool bRepaint);
+}
+"@
+
+Add-Type -AssemblyName System.Windows.Forms
+$hwnd = [WinAPI]::GetForegroundWindow()
+[WinAPI]::MoveWindow($hwnd, 100, 100, 800, 400, $true)
+
+
+# ==================== CONFIGURATION ====================
+
 
 # ==================== VALIDATION FUNCTION ====================
 function Validate-Configuration {
@@ -66,7 +83,7 @@ function Validate-Configuration {
         }
     }
     
-    Write-Host "Tất cả cau hinh hop le`n" -ForegroundColor Green
+    Write-Host "Tat ca cau hinh hop le`n" -ForegroundColor Green
 }
 
 # ==================== LOAD DLL ====================
@@ -273,7 +290,7 @@ $ScanJobBlock = {
                     if ($fileInfo.IsDirectory) { continue }
                     
                     # Extract MAC từ filename
-                    if (($fileInfo.Name -match "(_[^_]+_)") -or ($fileInfo.Name -match "([^_]+_)")) {
+                    if ($fileInfo.Name -match "([^_]{12,}_)") {
                         $extractedMac = $matches[1].Trim('_').ToUpper()
                         
                         # Kiểm tra MAC có trong HashSet không - O(1) complexity
