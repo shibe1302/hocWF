@@ -103,7 +103,7 @@ namespace TE_TOOL.Views._02_tab_thu_thap_log
         }
         private void BTN_saveFormInfo_Click(object sender, EventArgs e)
         {
-            SaveFormData("config_log_collector.json");
+            SaveFormData(CONFIG_CONSTANT.CONFIG_LOG_COLLECTOR);
             // Thông báo thành công
             MessageBox.Show("Đã lưu cấu hình thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
@@ -232,7 +232,7 @@ namespace TE_TOOL.Views._02_tab_thu_thap_log
                         WorkingDirectory = Path.Combine(scriptPath, "log_collection_ps1")
                     };
 
-                    SaveFormData("config_log_collector.json");
+                    SaveFormData(CONFIG_CONSTANT.CONFIG_LOG_COLLECTOR);
                     Process.Start(psi);
                 }
                 else
@@ -283,7 +283,7 @@ namespace TE_TOOL.Views._02_tab_thu_thap_log
                             CreateNoWindow = false,
                             WorkingDirectory = Path.Combine(scriptPath, "log_collection_ps1")
                         };
-                        SaveFormData("config_log_collector.json");
+                        SaveFormData(CONFIG_CONSTANT.CONFIG_LOG_COLLECTOR);
                         Process.Start(psi);
                     }
                     catch (Exception ex)

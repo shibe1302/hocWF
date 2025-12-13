@@ -114,6 +114,7 @@
             BTN_saveFormInfo.TabIndex = 81;
             BTN_saveFormInfo.Text = "Save information";
             BTN_saveFormInfo.UseVisualStyleBackColor = true;
+            BTN_saveFormInfo.Click += BTN_saveFormInfo_Click;
             // 
             // BTN_startScanLog
             // 

@@ -275,7 +275,7 @@ namespace hocWF
             btnOpenFolder.TabIndex = 2;
             btnOpenFolder.Text = "FTU MỚI";
             btnOpenFolder.UseVisualStyleBackColor = true;
-            btnOpenFolder.Click += button6_Click;
+
             // 
             // openFileDialog3
             // 
