@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace hocWF
+namespace TE_TOOL.Models
 {
     internal class LogCollectorConfig
     {
